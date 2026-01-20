@@ -13,6 +13,13 @@ interface TokenLibraryProps {
   onStatusFilterChange: (status: 'all' | 'live' | 'launching' | 'ended') => void;
 }
 
+// Helper to map the new LaunchpadToken status to the old status type
+function getTokenStatus(token: LaunchpadToken): 'live' | 'launching' | 'ended' {
+  if (token.graduated) return 'ended';
+  if (token.paused) return 'launching';
+  return 'live';
+}
+
 export function TokenLibrary({
   tokens,
   isLoading,
@@ -77,8 +84,8 @@ export function TokenLibrary({
         <div className="token-table-head" role="row">
           <div className="col name" role="columnheader">Name</div>
           <div className="col symbol" role="columnheader">Symbol</div>
-          <div className="col change" role="columnheader">24h</div>
-          <div className="col liquidity" role="columnheader">Liquidity</div>
+          <div className="col change" role="columnheader">Price</div>
+          <div className="col liquidity" role="columnheader">Market Cap</div>
           <div className="col status" role="columnheader">Status</div>
         </div>
 
@@ -95,10 +102,10 @@ export function TokenLibrary({
                 id={token.id}
                 name={token.name}
                 symbol={token.symbol}
-                change24h={token.change24h}
-                liquidity={token.liquidity}
-                status={token.status}
-                curveHash={token.curveHash}
+                change24h={0} // No 24h change data yet
+                liquidity={parseFloat(token.marketCap) || 0}
+                status={getTokenStatus(token)}
+                curveHash={token.id}
                 progress={token.progress}
               />
             ))

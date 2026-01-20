@@ -15,20 +15,21 @@ export function Staking() {
       <section className="hero staking-hero" id="staking">
         <div className="container staking-layout">
           <div className="staking-heading">
-            <h1>Liquid Staking</h1>
-            <p>Stake CSPR to receive sCSPR tokens that earn staking rewards while remaining liquid</p>
+            <h1>ECTO Staking</h1>
+            <p>Stake ECTO tokens to earn rewards. Lock for longer periods to receive bonus multipliers.</p>
           </div>
 
           <StakingCard />
 
           <div className="hero-copy staking-copy active">
             <div className="info-box">
-              <h3>About Liquid Staking</h3>
+              <h3>How Staking Works</h3>
               <ul>
-                <li><strong>Stake CSPR</strong> → Receive sCSPR tokens at the current exchange rate</li>
-                <li><strong>Earn Rewards</strong> → sCSPR value increases as staking rewards accumulate</li>
-                <li><strong>Stay Liquid</strong> → Use sCSPR in DeFi while earning staking rewards</li>
-                <li><strong>Unstake Anytime</strong> → Burn sCSPR to withdraw CSPR (7 era unstaking period)</li>
+                <li><strong>Stake ECTO</strong> - Deposit your ECTO tokens into the staking pool</li>
+                <li><strong>Choose Lock Period</strong> - Optional lock periods offer higher reward multipliers</li>
+                <li><strong>Earn Rewards</strong> - Accumulate ECTO rewards over time based on your stake</li>
+                <li><strong>Claim Anytime</strong> - Claim rewards without unstaking your position</li>
+                <li><strong>Unstake</strong> - Withdraw your ECTO once the lock period ends</li>
               </ul>
             </div>
           </div>

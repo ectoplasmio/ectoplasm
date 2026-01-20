@@ -18,11 +18,26 @@ export const SUI_CONFIG = {
   // Default network
   defaultNetwork: 'testnet' as const,
 
-  // Deployed package ID
+  // Deployed package ID (main AMM/DEX)
   packageId: '0xefc27145b92094d1675dbdf1b6d5f4d26277fb1e4da73779fe302064b91ba081',
+
+  // Features package ID (staking, launchpad)
+  featuresPackageId: '0x9148054627665ef223218fef249e3b472fc80e7de4389c49cf8760ef815bbbe3',
 
   // Factory object (shared)
   factoryId: '0x67a6ad1736426b5b637514d690829679d6753ff02f3161ec0466e40b1a2a9f73',
+
+  // Staking configuration
+  staking: {
+    poolId: '0x59a191508103795bc8a1f2951c56b8b431dd9cb5b5bbf4d23ef44347fec95b36',
+    adminCapId: '0x437a66c3853ea707671db2dff9e808ff03fcc0fd20400010ec44f7cf0340cbc5',
+  },
+
+  // Launchpad configuration
+  launchpad: {
+    configId: '0xad4b336d5109e3d08ec6b58a26637ab8a86f54fe449da7566a18b7bf3f2d716a',
+    adminCapId: '0x75364575849d028a7b835ccc31d63322433b7861d685cfb9dca97c2158593903',
+  },
 
   // Treasury caps for minting test tokens
   treasuryCaps: {

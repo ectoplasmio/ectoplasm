@@ -30,7 +30,7 @@ export function StakingCard() {
       <div className="card-body">
         {!connected ? (
           <div className="connect-wallet-prompt">
-            <p>Please connect your wallet to stake CSPR</p>
+            <p>Please connect your wallet to stake ECTO</p>
           </div>
         ) : (
           <>
