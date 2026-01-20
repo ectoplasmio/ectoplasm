@@ -7,8 +7,8 @@ type OrderTab = 'swap' | 'limit' | 'buy' | 'sell';
 export function LandingSwapCard() {
   const { balances } = useWallet();
   const [activeTab, setActiveTab] = useState<OrderTab>('swap');
-  const [tokenIn] = useState('CSPR');
-  const [tokenOut] = useState('ECTO');
+  const [tokenIn] = useState('ECTO');
+  const [tokenOut] = useState('USDC');
   const [amountIn, setAmountIn] = useState('');
   const [amountOut] = useState('');
 
@@ -89,8 +89,8 @@ export function LandingSwapCard() {
             />
             <div className="token-selector">
               <select value={tokenIn} disabled aria-label="Sell token">
-                <option value="CSPR">CSPR</option>
                 <option value="ECTO">ECTO</option>
+                <option value="USDC">USDC</option>
               </select>
             </div>
           </div>
@@ -120,8 +120,8 @@ export function LandingSwapCard() {
             />
             <div className="token-selector">
               <select value={tokenOut} disabled aria-label="Buy token">
+                <option value="USDC">USDC</option>
                 <option value="ECTO">ECTO</option>
-                <option value="CSPR">CSPR</option>
               </select>
             </div>
           </div>

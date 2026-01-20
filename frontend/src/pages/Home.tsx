@@ -25,14 +25,14 @@ export function Home() {
           <div className="hero-copy swap-copy">
             <p className="lead">
               A focused swap card sits front and center. Connect your wallet, set slippage,
-              and move between CSPR and ECTO with clear routing and instant feedback.
+              and move between SUI tokens with clear routing and instant feedback.
             </p>
             <div className="hero-cta">
               <a href="#swap" className="btn primary large">Get started</a>
             </div>
             <ul className="trust-list">
-              <li><strong id="priceTicker">CSPR $--.--</strong> live price</li>
-              <li>Casper mainnet routing</li>
+              <li><strong>SUI Testnet</strong> live now</li>
+              <li>Sub-second finality</li>
               <li>Wallet status shown inline</li>
             </ul>
           </div>
@@ -57,7 +57,7 @@ export function Home() {
                 <span className="pill subtle">Core</span>
               </div>
               <h3>Swap</h3>
-              <p>Fast Casper-native swapping with slippage control and a clean terminal anchored on the home page.</p>
+              <p>Lightning-fast SUI-native swapping with slippage control and a clean terminal anchored on the home page.</p>
               <a className="chip" href="#swap">Open swap terminal</a>
             </article>
             <article className="feature-card">
@@ -73,7 +73,7 @@ export function Home() {
                 <span className="pill subtle">Creation</span>
               </div>
               <h3>Launchpad</h3>
-              <p>Pump.fun style creation with fifty mock tokens visible in the launchpad library.</p>
+              <p>Pump.fun style token creation with bonding curves - coming soon to SUI.</p>
               <Link className="chip" to="/launchpad">See launchpad</Link>
             </article>
             <article className="feature-card">
@@ -92,24 +92,24 @@ export function Home() {
       <section className="section alt">
         <div className="container stats-grid" aria-label="Protocol performance highlights">
           <div className="stat-card">
-            <p className="muted">24h Volume</p>
-            <strong>$182M</strong>
-            <small>Deep liquidity across majors</small>
+            <p className="muted">Network</p>
+            <strong>SUI</strong>
+            <small>High-throughput L1 blockchain</small>
           </div>
           <div className="stat-card">
-            <p className="muted">Total Value Locked</p>
-            <strong>$612M</strong>
-            <small>Growing Casper-native liquidity</small>
+            <p className="muted">Transaction Speed</p>
+            <strong>&lt;500ms</strong>
+            <small>Near-instant finality</small>
           </div>
           <div className="stat-card">
-            <p className="muted">Average Confirmation</p>
-            <strong>1.3s</strong>
-            <small>Fast finality with safety checks</small>
+            <p className="muted">Gas Fees</p>
+            <strong>~$0.001</strong>
+            <small>Extremely low transaction costs</small>
           </div>
           <div className="stat-card">
-            <p className="muted">Uptime</p>
-            <strong>99.98%</strong>
-            <small>Monitored infra & failover</small>
+            <p className="muted">Object Model</p>
+            <strong>Parallel</strong>
+            <small>Scalable transaction processing</small>
           </div>
         </div>
       </section>
@@ -119,7 +119,7 @@ export function Home() {
         <div className="container">
           <h2>How it works</h2>
           <ol className="steps">
-            <li><strong>Land on the swapper</strong> — connect and trade immediately.</li>
+            <li><strong>Land on the swapper</strong> — connect your SUI wallet and trade immediately.</li>
             <li><strong>Scroll for depth</strong> — see dashboards, liquidity tools, and launchpad access.</li>
             <li><strong>Return daily</strong> — quests, streaks, and on-chain tasks keep users engaged.</li>
           </ol>
@@ -131,9 +131,9 @@ export function Home() {
         <div className="container">
           <h2>Roadmap</h2>
           <ul className="roadmap">
-            <li><strong>Q1:</strong> Mainnet launch, basic swaps, liquidity pools</li>
-            <li><strong>Q2:</strong> Limit orders, LP protections, audits</li>
-            <li><strong>Q3:</strong> Cross-chain bridges, more assets, governance</li>
+            <li><strong>Phase 1:</strong> Testnet launch, basic swaps, liquidity pools</li>
+            <li><strong>Phase 2:</strong> Launchpad with bonding curves, token creation</li>
+            <li><strong>Phase 3:</strong> Mainnet deployment, governance, advanced features</li>
           </ul>
         </div>
       </section>
@@ -148,18 +148,17 @@ export function Home() {
             <h2>Security & Audits</h2>
           </div>
           <p>
-            We prioritize safety. Contracts will be audited by top firms—starting with a planned
-            engagement with <a href="https://www.halborn.com/" target="_blank" rel="noreferrer">Halborn</a>—and
-            results published on-chain and in our docs.
+            We prioritize safety. Smart contracts are written in Move, SUI's secure programming language,
+            and will be audited by top firms before mainnet launch.
           </p>
           <div className="audit-logo" aria-label="Halborn audit partner">
             <img src="/assets/halborn-logo-black.svg" alt="Halborn logo" className="halborn-logo-light" />
             <img src="/assets/halborn-logo-green.svg" alt="Halborn logo" className="halborn-logo-dark" />
           </div>
           <ul className="safety-list">
-            <li>Deterministic builds and reproducible deployments</li>
-            <li>Multi-sig controlled upgrades with time-locked changes</li>
-            <li>Continuous monitoring for MEV and sandwich vectors</li>
+            <li>Move language with built-in safety guarantees</li>
+            <li>Object-centric model prevents common vulnerabilities</li>
+            <li>Transparent on-chain verification</li>
           </ul>
         </div>
       </section>

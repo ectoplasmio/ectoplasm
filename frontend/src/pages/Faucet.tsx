@@ -5,6 +5,7 @@ import { useWallet } from '../contexts/WalletContext';
 import { useDex } from '../contexts/DexContext';
 import { useToast } from '../contexts/ToastContext';
 import { SUI_CONFIG } from '../config/sui';
+import { parseError } from '../utils/errors';
 
 export function Faucet() {
   const currentAccount = useCurrentAccount();
@@ -103,14 +104,15 @@ export function Faucet() {
         refreshBalances();
       }, 2000);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Faucet error:', error);
       if (pendingId) removeToast(pendingId);
-      showToast('error', error.message);
+      const parsed = parseError(error);
+      showToast('error', parsed.message);
 
       setMessage({
         type: 'error',
-        text: error.message || 'Failed to request tokens'
+        text: parsed.suggestion ? `${parsed.message}. ${parsed.suggestion}` : parsed.message
       });
     } finally {
       setRequesting(null);

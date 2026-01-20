@@ -97,7 +97,7 @@ export function Dashboard() {
             </div>
             <h1>Track your progress</h1>
             <p className="lead">
-              Complete quests, earn XP, and unlock rewards as you trade on Ectoplasm.
+              Complete quests, earn XP, and unlock rewards as you trade on Ectoplasm SUI.
               Level up to access exclusive perks and trading bonuses.
             </p>
           </div>

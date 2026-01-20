@@ -4,9 +4,9 @@ import { useState, useEffect, useCallback } from 'react';
 export const DASHBOARD_DATA = {
   dailyTasks: [
     { id: 0, title: 'Check-in and claim streak bonus', xp: 40 },
-    { id: 1, title: 'Complete one swap on Casper', xp: 120 },
-    { id: 2, title: 'Stake liquidity into any $ECTO pair', xp: 200 },
-    { id: 3, title: 'Vote on one governance proposal', xp: 90 },
+    { id: 1, title: 'Complete one swap on SUI', xp: 120 },
+    { id: 2, title: 'Add liquidity to any pool', xp: 200 },
+    { id: 3, title: 'Use the testnet faucet', xp: 90 },
     { id: 4, title: 'Claim today\'s login reward chest', xp: 60 },
     { id: 5, title: 'Finish a 3-trade combo route', xp: 140 },
   ],
@@ -17,7 +17,7 @@ export const DASHBOARD_DATA = {
   ],
   missions: [
     { id: 'mission-0', title: 'Create your first trade', xp: 120, type: 'Starter' },
-    { id: 'mission-1', title: 'Hit 10,000 CSPR volume', xp: 350, type: 'Volume' },
+    { id: 'mission-1', title: 'Hit 10,000 USDC volume', xp: 350, type: 'Volume' },
     { id: 'mission-2', title: '7-day login streak', xp: 280, type: 'Streak' },
     { id: 'mission-3', title: 'Complete 3 liquidity quests', xp: 320, type: 'Liquidity' },
     { id: 'mission-4', title: 'Combo trader', xp: 260, type: 'Combo' },

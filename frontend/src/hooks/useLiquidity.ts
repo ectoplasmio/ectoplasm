@@ -4,6 +4,7 @@ import { useWallet } from '../contexts/WalletContext';
 import { useDex } from '../contexts/DexContext';
 import { useToast } from '../contexts/ToastContext';
 import { SUI_CONFIG, formatAmount, parseAmount } from '../config/sui';
+import { getErrorMessage, parseError } from '../utils/errors';
 
 interface LiquidityPosition {
   pairName: string;
@@ -309,11 +310,12 @@ export function useLiquidity(): UseLiquidityResult {
 
       return txDigest;
 
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
       if (pendingId) removeToast(pendingId);
-      setError(e.message);
-      showToast('error', e.message || 'Failed to add liquidity');
+      const parsed = parseError(e);
+      setError(parsed.message);
+      showToast('error', parsed.message);
       return null;
     } finally {
       setLoading(false);
@@ -412,11 +414,12 @@ export function useLiquidity(): UseLiquidityResult {
 
       return txDigest;
 
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
       if (pendingId) removeToast(pendingId);
-      setError(e.message);
-      showToast('error', e.message || 'Failed to remove liquidity');
+      const parsed = parseError(e);
+      setError(parsed.message);
+      showToast('error', parsed.message);
       return null;
     } finally {
       setLoading(false);

@@ -5,3 +5,4 @@ export { ConnectWallet } from './ConnectWallet';
 export { ErrorBoundary } from './ErrorBoundary';
 export { Loading, PageLoader, CardLoader } from './Loading';
 export { ScrollToTop } from './ScrollToTop';
+export { TransactionHistory } from './TransactionHistory';

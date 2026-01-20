@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ConnectButton, useCurrentAccount } from '@mysten/dapp-kit';
 import { useWallet } from '../contexts/WalletContext';
 import { SUI_CONFIG } from '../config/sui';
+import { TransactionHistory } from '../components/common';
 
 export function Wallet() {
   const currentAccount = useCurrentAccount();
@@ -122,6 +123,11 @@ export function Wallet() {
                 );
               })}
             </div>
+          </div>
+
+          {/* Transaction History */}
+          <div className="wallet-transactions" style={{ marginTop: '32px' }}>
+            <TransactionHistory limit={10} showTitle={true} />
           </div>
         </div>
       </section>

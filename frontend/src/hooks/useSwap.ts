@@ -4,6 +4,7 @@ import { useWallet } from '../contexts/WalletContext';
 import { useDex } from '../contexts/DexContext';
 import { useToast } from '../contexts/ToastContext';
 import { SUI_CONFIG, formatAmount, parseAmount, getExplorerUrl } from '../config/sui';
+import { getErrorMessage, parseError } from '../utils/errors';
 
 export interface SwapQuote {
   valid: boolean;
@@ -110,9 +111,9 @@ export function useSwap(): UseSwapResult {
       });
       setAmountOut(amountOutFormatted);
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      setError(err.message);
+      setError(getErrorMessage(err));
       setQuote(null);
       setAmountOut('');
     } finally {
@@ -212,10 +213,11 @@ export function useSwap(): UseSwapResult {
 
       return txDigest;
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       if (pendingId) removeToast(pendingId);
-      showToast('error', err.message || 'Swap failed');
+      const parsed = parseError(err);
+      showToast('error', parsed.message);
       return null;
     } finally {
       setLoading(false);
