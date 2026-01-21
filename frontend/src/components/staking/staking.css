@@ -215,6 +215,17 @@
   color: var(--accent-primary, #4cf5c7);
 }
 
+/* Error Message */
+.error-message {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #ef4444;
+  font-size: 0.875rem;
+}
+
 /* Buttons */
 .stake-button,
 .unstake-button {

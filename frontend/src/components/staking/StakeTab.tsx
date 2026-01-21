@@ -1,120 +1,156 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCurrentAccount } from '@mysten/dapp-kit';
 import { useWallet } from '../../contexts/WalletContext';
-import { useStaking, LOCK_OPTIONS } from '../../hooks/useStaking';
 
 export function StakeTab() {
   const currentAccount = useCurrentAccount();
-  const { balances } = useWallet();
-  const {
-    poolInfo,
-    stakeAmount,
-    setStakeAmount,
-    lockOption,
-    setLockOption,
-    stake,
-    loading,
-    error,
-  } = useStaking();
+  const { balances, refreshBalances } = useWallet();
+  const [suiAmount, setSuiAmount] = useState('');
+  const [ssuiAmount, setSsuiAmount] = useState('0');
+  const [exchangeRate, setExchangeRate] = useState('1.0');
+  const [isStaking, setIsStaking] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const connected = !!currentAccount;
-  const ectoBalance = balances.ECTO?.formatted || '0';
+  const suiBalance = balances.SUI?.formatted || '0';
+
+  // Fetch exchange rate (mock for now)
+  useEffect(() => {
+    // TODO: Fetch actual exchange rate from staking contract
+    setExchangeRate('1.0');
+  }, []);
+
+  // Calculate sSUI amount based on SUI input
+  useEffect(() => {
+    if (suiAmount && !isNaN(parseFloat(suiAmount))) {
+      const sui = parseFloat(suiAmount);
+      const rate = parseFloat(exchangeRate);
+      const ssui = sui / rate;
+      setSsuiAmount(ssui.toFixed(6));
+    } else {
+      setSsuiAmount('0');
+    }
+  }, [suiAmount, exchangeRate]);
 
   const handleMaxClick = () => {
-    setStakeAmount(ectoBalance);
+    // Reserve some SUI for gas
+    const maxAmount = Math.max(0, parseFloat(suiBalance) - 0.1);
+    setSuiAmount(maxAmount.toString());
   };
 
   const handleStake = async () => {
-    await stake();
+    if (!suiAmount || parseFloat(suiAmount) <= 0) {
+      setError('Please enter a valid amount');
+      return;
+    }
+
+    if (parseFloat(suiAmount) < 1) {
+      setError('Minimum stake amount is 1 SUI');
+      return;
+    }
+
+    if (!connected) {
+      setError('Please connect your wallet first');
+      return;
+    }
+
+    setIsStaking(true);
+    setError(null);
+
+    try {
+      // TODO: Implement actual liquid staking transaction
+      console.log('Staking', suiAmount, 'SUI for', ssuiAmount, 'sSUI');
+
+      // Simulate delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Clear the input
+      setSuiAmount('');
+
+      // Refresh balances
+      await refreshBalances();
+    } catch (err: any) {
+      console.error('Staking failed:', err);
+      setError(err.message || 'Staking failed');
+    } finally {
+      setIsStaking(false);
+    }
   };
 
-  const selectedLock = LOCK_OPTIONS[lockOption];
-  const isDisabled = loading || !stakeAmount || parseFloat(stakeAmount) <= 0;
+  const isDisabled = isStaking || !suiAmount || parseFloat(suiAmount) < 1;
 
   return (
     <div className="stake-tab">
-      {poolInfo?.paused && (
-        <div className="warning-banner">
-          <p>Staking is currently paused.</p>
-        </div>
-      )}
-
-      <div className="stake-form">
-        <div className="input-group">
-          <label>Amount to Stake</label>
-          <div className="input-with-max">
-            <input
-              type="number"
-              placeholder="0.00"
-              value={stakeAmount}
-              onChange={(e) => setStakeAmount(e.target.value)}
-              disabled={loading}
-            />
-            <button className="max-btn" onClick={handleMaxClick} disabled={loading}>
-              MAX
+      <div className="input-section">
+        <div className="input-header">
+          <label>Stake SUI</label>
+          <div className="balance-row">
+            <span className="balance">Balance: {parseFloat(suiBalance).toFixed(4)} SUI</span>
+            <button className="refresh-button" onClick={() => refreshBalances()} title="Refresh balance">
+              ↻
             </button>
           </div>
-          <span className="balance-hint">Balance: {ectoBalance} ECTO</span>
         </div>
-
-        <div className="input-group">
-          <label>Lock Period (Higher bonus for longer locks)</label>
-          <div className="lock-options">
-            {LOCK_OPTIONS.map((option, index) => (
-              <button
-                key={option.value}
-                className={`lock-option ${lockOption === index ? 'active' : ''}`}
-                onClick={() => setLockOption(index)}
-                disabled={loading}
-              >
-                <span className="lock-label">{option.label}</span>
-                <span className="lock-bonus">{option.bonus}</span>
-              </button>
-            ))}
+        <div className="input-wrapper">
+          <input
+            type="number"
+            value={suiAmount}
+            onChange={(e) => setSuiAmount(e.target.value)}
+            placeholder="0.0"
+            min="0"
+            step="any"
+            disabled={isStaking}
+          />
+          <div className="input-actions">
+            <button className="max-button" onClick={handleMaxClick} disabled={isStaking}>
+              MAX
+            </button>
+            <span className="token-symbol">SUI</span>
           </div>
         </div>
-
-        {stakeAmount && parseFloat(stakeAmount) > 0 && (
-          <div className="stake-preview">
-            <div className="preview-row">
-              <span>Lock Period:</span>
-              <span>{selectedLock.days} days</span>
-            </div>
-            <div className="preview-row">
-              <span>Reward Multiplier:</span>
-              <span>{selectedLock.bonus}</span>
-            </div>
-          </div>
-        )}
-
-        {error && <div className="error-message">{error}</div>}
-
-        <button
-          className="stake-button primary-button"
-          onClick={handleStake}
-          disabled={isDisabled || poolInfo?.paused}
-        >
-          {loading ? 'Staking...' : 'Stake ECTO'}
-        </button>
       </div>
 
-      {poolInfo && (
-        <div className="pool-stats">
-          <h4>Pool Statistics</h4>
-          <div className="stat-row">
-            <span>Total Staked:</span>
-            <span>{poolInfo.totalStaked} ECTO</span>
-          </div>
-          <div className="stat-row">
-            <span>Reward Pool:</span>
-            <span>{poolInfo.rewardBalance} ECTO</span>
-          </div>
-          <div className="stat-row">
-            <span>Total Rewards Distributed:</span>
-            <span>{poolInfo.totalRewardsDistributed} ECTO</span>
-          </div>
+      <div className="exchange-info">
+        <div className="exchange-arrow">↓</div>
+        <div className="exchange-rate">
+          1 sSUI = {exchangeRate} SUI
         </div>
-      )}
+      </div>
+
+      <div className="output-section">
+        <div className="output-header">
+          <label>Receive sSUI</label>
+        </div>
+        <div className="output-wrapper">
+          <div className="output-value">{ssuiAmount}</div>
+          <span className="token-symbol">sSUI</span>
+        </div>
+      </div>
+
+      <div className="info-section">
+        <div className="info-row">
+          <span>Minimum Stake:</span>
+          <span>1 SUI</span>
+        </div>
+        <div className="info-row">
+          <span>Exchange Rate:</span>
+          <span>1 sSUI = {exchangeRate} SUI</span>
+        </div>
+        <div className="info-row">
+          <span>You will receive:</span>
+          <span>{ssuiAmount} sSUI</span>
+        </div>
+      </div>
+
+      {error && <div className="error-message">{error}</div>}
+
+      <button
+        className="stake-button primary-button"
+        onClick={handleStake}
+        disabled={isDisabled}
+      >
+        {isStaking ? 'Staking...' : 'Stake SUI'}
+      </button>
     </div>
   );
 }
