@@ -1,3 +1,9 @@
+# Build outputs
+dist/
+build/
+test-results/
+playwright-report/
+
 # Environment variables
 .env
 .env.local

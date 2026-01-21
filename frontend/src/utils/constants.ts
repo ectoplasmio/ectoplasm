@@ -15,11 +15,12 @@ export const THEMES = {
 
 export type Theme = typeof THEMES[keyof typeof THEMES];
 
-// Wallet types supported
+// Wallet types supported (SUI ecosystem wallets via dapp-kit)
 export const WALLET_TYPES = {
-  CASPER_WALLET: 'CasperWallet',
-  CSPR_CLICK: 'CSPRClick',
-  CASPER_SIGNER: 'CasperSigner',
+  SUI_WALLET: 'Sui Wallet',
+  SUIET: 'Suiet',
+  ETHOS: 'Ethos Wallet',
+  MARTIAN: 'Martian Sui Wallet',
 } as const;
 
 export type WalletType = typeof WALLET_TYPES[keyof typeof WALLET_TYPES];

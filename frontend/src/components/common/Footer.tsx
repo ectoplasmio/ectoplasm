@@ -13,7 +13,7 @@ export function Footer() {
             <span>Ectoplasm</span>
           </Link>
           <p className="muted">
-            Built on Casper Network · Open source · © {currentYear} EcosystemNetwork
+            Built on SUI Network · Open source · © {currentYear} EcosystemNetwork
           </p>
         </div>
         <nav aria-label="Footer navigation">

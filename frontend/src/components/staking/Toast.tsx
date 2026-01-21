@@ -17,7 +17,7 @@ export function Toast({ message, type = 'info', deployHash, onClose }: ToastProp
     return () => clearTimeout(timer);
   }, [onClose]);
 
-  const explorerUrl = deployHash ? `https://testnet.cspr.live/deploy/${deployHash}` : null;
+  const explorerUrl = deployHash ? `https://suiscan.xyz/testnet/tx/${deployHash}` : null;
 
   return (
     <div className={`toast toast-${type}`}>

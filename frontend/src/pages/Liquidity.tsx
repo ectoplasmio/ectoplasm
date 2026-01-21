@@ -6,14 +6,14 @@ import { useWallet } from '../contexts/WalletContext';
 // Demo staking pools data
 const STAKING_POOLS = [
   {
-    name: 'CSPR Liquid Staking',
+    name: 'SUI Liquid Staking',
     subtitle: 'Auto-compound · No lock',
-    token: 'stCSPR',
-    tokenA: 'CSPR',
+    token: 'stSUI',
+    tokenA: 'SUI',
     tokenB: 'USDC',
     tvl: 125800000,
     apr: 16.8,
-    minStake: '100 CSPR',
+    minStake: '100 SUI',
     avatarType: 'primary' as const,
     avatarChar: '◈',
   },
@@ -70,11 +70,11 @@ const STAKING_POOLS = [
 // Demo user positions
 const DEMO_POSITIONS = [
   {
-    name: 'CSPR Liquid Staking',
-    staked: '25,000 CSPR',
+    name: 'SUI Liquid Staking',
+    staked: '25,000 SUI',
     apr: '16.8%',
     earned: '$3,920.40',
-    lstToken: '25,125 stCSPR',
+    lstToken: '25,125 stSUI',
   },
   {
     name: 'ECTO Liquid Staking',

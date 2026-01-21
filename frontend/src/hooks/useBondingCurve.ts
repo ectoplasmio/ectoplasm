@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 
 // Stub types for bonding curve (not yet implemented on SUI)
 export interface CurveState {
-  csprRaised: bigint;
+  suiRaised: bigint;
   tokensSold: bigint;
   graduated: boolean;
   refunding: boolean;
@@ -15,7 +15,7 @@ export interface UseBondingCurveResult {
   currentPrice: bigint;
   progress: number;
   status: 'active' | 'graduated' | 'refunding';
-  csprRaised: bigint;
+  suiRaised: bigint;
   tokensSold: bigint;
   isRefundable: boolean;
   buyTokens: (amount: bigint, slippageBps?: number) => Promise<string | null>;
@@ -76,7 +76,7 @@ export function useBondingCurve(_curveHash: string): UseBondingCurveResult {
     currentPrice: 0n,
     progress: 0,
     status: 'active',
-    csprRaised: 0n,
+    suiRaised: 0n,
     tokensSold: 0n,
     isRefundable: false,
     buyTokens,

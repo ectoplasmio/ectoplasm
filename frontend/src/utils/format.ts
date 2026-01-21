@@ -29,21 +29,32 @@ export function truncateAddress(address: string, startLen: number = 8, endLen: n
 }
 
 /**
- * Convert motes to CSPR (9 decimals)
+ * Convert MIST to SUI (9 decimals)
+ * MIST is the smallest unit of SUI, similar to wei for ETH
  */
-export function motesToCspr(motes: string | bigint): string {
-  const value = typeof motes === 'string' ? BigInt(motes) : motes;
-  const cspr = Number(value) / 1e9;
-  return cspr.toFixed(4);
+export function mistToSui(mist: string | bigint): string {
+  const value = typeof mist === 'string' ? BigInt(mist) : mist;
+  const sui = Number(value) / 1e9;
+  return sui.toFixed(4);
 }
 
 /**
- * Convert CSPR to motes
+ * Convert SUI to MIST
  */
-export function csprToMotes(cspr: number | string): string {
-  const value = typeof cspr === 'string' ? parseFloat(cspr) : cspr;
+export function suiToMist(sui: number | string): string {
+  const value = typeof sui === 'string' ? parseFloat(sui) : sui;
   return Math.floor(value * 1e9).toString();
 }
+
+/**
+ * @deprecated Use mistToSui instead (legacy Casper naming)
+ */
+export const motesToCspr = mistToSui;
+
+/**
+ * @deprecated Use suiToMist instead (legacy Casper naming)
+ */
+export const csprToMotes = suiToMist;
 
 /**
  * Convert token amount from raw to formatted based on decimals

@@ -115,7 +115,7 @@ const ToastItem: React.FC<{ toast: Toast; onRemove: (id: string) => void }> = ({
                 </div>
                 {toast.txHash && (
                     <a
-                        href={`https://testnet.cspr.live/deploy/${toast.txHash}`}
+                        href={`https://suiscan.xyz/testnet/tx/${toast.txHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{

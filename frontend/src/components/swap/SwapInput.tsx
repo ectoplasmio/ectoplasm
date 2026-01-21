@@ -1,5 +1,5 @@
 import React from 'react';
-import { EctoplasmConfig, TokenSymbol } from '../../config/ectoplasm';
+import { SUI_CONFIG, TokenSymbol } from '../../config/sui';
 import { useWallet } from '../../contexts/WalletContext';
 
 interface SwapInputProps {
@@ -22,7 +22,7 @@ export function SwapInput({
   showBalance = true
 }: SwapInputProps) {
   const { balances, connected } = useWallet();
-  const tokenSymbols = EctoplasmConfig.getTokenSymbols();
+  const tokenSymbols = Object.keys(SUI_CONFIG.tokens) as TokenSymbol[];
   const balance = balances[token.toUpperCase()]?.formatted || '0';
 
   const handleMaxClick = () => {

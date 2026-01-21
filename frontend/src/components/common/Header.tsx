@@ -2,21 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
 import { ConnectWallet } from './ConnectWallet';
-import { EctoplasmConfig } from '../../config/ectoplasm';
 
 export function Header() {
   const location = useLocation();
   const { isDark, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [contractVersion, setContractVersion] = useState(EctoplasmConfig.contractVersion);
   const menuRef = useRef<HTMLDivElement>(null);
-
-  const handleVersionToggle = () => {
-    const newVersion = EctoplasmConfig.toggleVersion();
-    setContractVersion(newVersion);
-    // Reload page to reinitialize with new contracts
-    window.location.reload();
-  };
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -55,7 +46,7 @@ export function Header() {
                 <Link className="menu-item" to="/" onClick={() => setMenuOpen(false)}>
                   <div>
                     <strong>Swap</strong>
-                    <p>Fast token swaps on Casper</p>
+                    <p>Fast token swaps on SUI</p>
                   </div>
                   <span className="pill">Live</span>
                 </Link>
@@ -104,15 +95,6 @@ export function Header() {
                       {isDark ? 'Light mode' : 'Dark mode'}
                     </button>
                   </li>
-                  <li>
-                    <button
-                      className="btn ghost"
-                      onClick={handleVersionToggle}
-                      style={{ width: '100%', textAlign: 'left' }}
-                    >
-                      Contracts: {contractVersion === 'native' ? 'Native' : 'Odra'}
-                    </button>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -133,7 +115,7 @@ export function Header() {
                 </div>
                 <div>
                   <span className="menu-metrics-label">Network</span>
-                  <strong>Casper</strong>
+                  <strong>SUI</strong>
                 </div>
               </div>
             </div>
@@ -141,7 +123,7 @@ export function Header() {
             <div className="menu-footer">
               <div>
                 <div className="menu-heading">Get started</div>
-                <p>Trade tokens, provide liquidity, and launch on the Casper Network with low fees and fast finality.</p>
+                <p>Trade tokens, provide liquidity, and launch on the SUI Network with low fees and fast finality.</p>
               </div>
               <Link className="btn primary" to="/" onClick={() => setMenuOpen(false)}>
                 Start trading

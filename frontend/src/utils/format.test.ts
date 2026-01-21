@@ -3,6 +3,8 @@ import {
   formatNumber,
   formatCompact,
   truncateAddress,
+  mistToSui,
+  suiToMist,
   motesToCspr,
   csprToMotes,
   formatTokenAmount,
@@ -82,39 +84,51 @@ describe('truncateAddress', () => {
   });
 });
 
-describe('motesToCspr', () => {
-  it('converts motes to CSPR', () => {
-    expect(motesToCspr('1000000000')).toBe('1.0000');
+describe('mistToSui', () => {
+  it('converts MIST to SUI', () => {
+    expect(mistToSui('1000000000')).toBe('1.0000');
   });
 
   it('handles bigint input', () => {
-    expect(motesToCspr(BigInt('5500000000'))).toBe('5.5000');
+    expect(mistToSui(BigInt('5500000000'))).toBe('5.5000');
   });
 
   it('handles small amounts', () => {
-    expect(motesToCspr('100000000')).toBe('0.1000');
+    expect(mistToSui('100000000')).toBe('0.1000');
   });
 
   it('handles zero', () => {
-    expect(motesToCspr('0')).toBe('0.0000');
+    expect(mistToSui('0')).toBe('0.0000');
   });
 });
 
-describe('csprToMotes', () => {
-  it('converts CSPR to motes', () => {
-    expect(csprToMotes(1)).toBe('1000000000');
+describe('suiToMist', () => {
+  it('converts SUI to MIST', () => {
+    expect(suiToMist(1)).toBe('1000000000');
   });
 
   it('handles string input', () => {
-    expect(csprToMotes('5.5')).toBe('5500000000');
+    expect(suiToMist('5.5')).toBe('5500000000');
   });
 
   it('handles fractional amounts', () => {
-    expect(csprToMotes(0.1)).toBe('100000000');
+    expect(suiToMist(0.1)).toBe('100000000');
   });
 
   it('handles zero', () => {
-    expect(csprToMotes(0)).toBe('0');
+    expect(suiToMist(0)).toBe('0');
+  });
+});
+
+describe('motesToCspr (deprecated alias)', () => {
+  it('works as alias for mistToSui', () => {
+    expect(motesToCspr('1000000000')).toBe('1.0000');
+  });
+});
+
+describe('csprToMotes (deprecated alias)', () => {
+  it('works as alias for suiToMist', () => {
+    expect(csprToMotes(1)).toBe('1000000000');
   });
 });
 

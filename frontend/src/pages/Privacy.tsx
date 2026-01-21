@@ -8,7 +8,7 @@ export function Privacy() {
         <div className="pump-card">
           <h2>Data Collection</h2>
           <p>
-            Ectoplasm is a decentralized application that operates primarily on the Casper blockchain.
+            Ectoplasm is a decentralized application that operates primarily on the SUI blockchain.
             We do not collect, store, or process any personal information beyond what is publicly
             available on the blockchain.
           </p>
@@ -21,7 +21,7 @@ export function Privacy() {
 
           <h2>Blockchain Transactions</h2>
           <p>
-            All transactions you make through Ectoplasm are recorded on the Casper blockchain and are
+            All transactions you make through Ectoplasm are recorded on the SUI blockchain and are
             publicly visible. This is inherent to blockchain technology and not unique to our platform.
           </p>
 
