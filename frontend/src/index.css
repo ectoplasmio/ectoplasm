@@ -4499,6 +4499,61 @@ body.pool-popout-open{overflow:hidden}
   color: var(--accent);
 }
 
+.faucet-info ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.faucet-info ol li {
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.faucet-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.faucet-buttons .btn {
+  min-width: 240px;
+}
+
+.faucet-notice {
+  text-align: left;
+  background: rgba(241, 196, 15, 0.1);
+  border: 1px solid rgba(241, 196, 15, 0.3);
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.faucet-notice h3 {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #f1c40f;
+  margin: 0 0 8px;
+}
+
+.faucet-notice p {
+  margin: 0 0 12px;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.faucet-notice ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.faucet-notice li {
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
 @media (max-width: 600px) {
   .faucet-balances {
     flex-direction: column;

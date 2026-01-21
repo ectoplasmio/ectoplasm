@@ -357,15 +357,22 @@ export class SuiService {
 
   // ===== Faucet Functions =====
 
+  /**
+   * Build a transaction to request tokens from the shared faucet
+   * The new faucet uses a shared object that anyone can call
+   */
   buildFaucetTransaction(tokenSymbol: 'ECTO' | 'USDC'): Transaction {
     const tx = new Transaction();
 
-    const treasuryCap = SUI_CONFIG.treasuryCaps[tokenSymbol];
+    const faucetId = SUI_CONFIG.faucets[tokenSymbol];
     const moduleName = tokenSymbol.toLowerCase();
 
     tx.moveCall({
-      target: `${SUI_CONFIG.packageId}::${moduleName}::faucet`,
-      arguments: [tx.object(treasuryCap)],
+      target: `${SUI_CONFIG.packageId}::${moduleName}::request_tokens`,
+      arguments: [
+        tx.object(faucetId),
+        tx.object('0x6'), // Clock object
+      ],
     });
 
     return tx;

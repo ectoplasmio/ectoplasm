@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useCurrentAccount, useSignAndExecuteTransaction, useSuiClient } from '@mysten/dapp-kit';
+import { useCurrentAccount, useSignAndExecuteTransaction } from '@mysten/dapp-kit';
 import { ConnectButton } from '@mysten/dapp-kit';
 import { useWallet } from '../contexts/WalletContext';
 import { useDex } from '../contexts/DexContext';
 import { useToast } from '../contexts/ToastContext';
-import { SUI_CONFIG } from '../config/sui';
 import { parseError } from '../utils/errors';
 
 export function Faucet() {
   const currentAccount = useCurrentAccount();
-  const suiClient = useSuiClient();
   const { mutateAsync: signAndExecuteTransaction } = useSignAndExecuteTransaction();
   const { balances, refreshBalances } = useWallet();
   const { service } = useDex();
@@ -77,7 +75,7 @@ export function Faucet() {
       pendingId = Date.now().toString();
       showToast('pending', `Requesting ${tokenSymbol} tokens...`);
 
-      // Build faucet transaction
+      // Build faucet transaction using the shared faucet
       const tx = service.buildFaucetTransaction(tokenSymbol);
 
       // Sign and execute
@@ -117,6 +115,14 @@ export function Faucet() {
     } finally {
       setRequesting(null);
     }
+  };
+
+  const openSuiFaucet = () => {
+    window.open('https://faucet.sui.io/', '_blank');
+    setMessage({
+      type: 'info',
+      text: 'Opening SUI Testnet Faucet in a new tab. Request SUI there and refresh your balances here.'
+    });
   };
 
   return (
@@ -176,6 +182,12 @@ export function Faucet() {
                         ? 'Request 1000 USDC'
                         : `Wait ${formatCooldown(cooldownRemaining('USDC'))}`
                     }
+                  </button>
+                  <button
+                    className="btn ghost"
+                    onClick={openSuiFaucet}
+                  >
+                    Get SUI (External)
                   </button>
                 </div>
               )}

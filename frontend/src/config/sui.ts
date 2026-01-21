@@ -1,4 +1,10 @@
 // SUI Configuration for Ectoplasm DEX
+// Contract addresses can be overridden via environment variables
+
+// Helper to get env var with fallback
+const env = (key: string, fallback: string): string => {
+  return (import.meta.env[key] as string) || fallback;
+};
 
 export const SUI_CONFIG = {
   // Network configuration
@@ -16,41 +22,41 @@ export const SUI_CONFIG = {
   },
 
   // Default network
-  defaultNetwork: 'testnet' as const,
+  defaultNetwork: env('VITE_SUI_NETWORK', 'testnet') as 'testnet' | 'mainnet',
 
   // Deployed package ID (main AMM/DEX)
-  packageId: '0xefc27145b92094d1675dbdf1b6d5f4d26277fb1e4da73779fe302064b91ba081',
+  packageId: env('VITE_PACKAGE_ID', '0xbb6dc8ce73ba919a406d403091cc8aca57f61f86d62348fe9bd483cba8e4b685'),
 
   // Features package ID (staking, launchpad)
-  featuresPackageId: '0x9148054627665ef223218fef249e3b472fc80e7de4389c49cf8760ef815bbbe3',
+  featuresPackageId: env('VITE_FEATURES_PACKAGE_ID', '0xbb6dc8ce73ba919a406d403091cc8aca57f61f86d62348fe9bd483cba8e4b685'),
 
   // Factory object (shared)
-  factoryId: '0x67a6ad1736426b5b637514d690829679d6753ff02f3161ec0466e40b1a2a9f73',
+  factoryId: env('VITE_FACTORY_ID', '0x3a61e22b50404844a1a050ddca117a18d83228f94a9caeb4895803b8cf956c2d'),
 
   // Staking configuration
   staking: {
-    poolId: '0x59a191508103795bc8a1f2951c56b8b431dd9cb5b5bbf4d23ef44347fec95b36',
-    adminCapId: '0x437a66c3853ea707671db2dff9e808ff03fcc0fd20400010ec44f7cf0340cbc5',
+    poolId: env('VITE_STAKING_POOL_ID', '0x59a191508103795bc8a1f2951c56b8b431dd9cb5b5bbf4d23ef44347fec95b36'),
+    adminCapId: env('VITE_STAKING_ADMIN_CAP_ID', '0x437a66c3853ea707671db2dff9e808ff03fcc0fd20400010ec44f7cf0340cbc5'),
   },
 
   // Launchpad configuration
   launchpad: {
-    configId: '0xad4b336d5109e3d08ec6b58a26637ab8a86f54fe449da7566a18b7bf3f2d716a',
-    adminCapId: '0x75364575849d028a7b835ccc31d63322433b7861d685cfb9dca97c2158593903',
+    configId: env('VITE_LAUNCHPAD_CONFIG_ID', '0xad4b336d5109e3d08ec6b58a26637ab8a86f54fe449da7566a18b7bf3f2d716a'),
+    adminCapId: env('VITE_LAUNCHPAD_ADMIN_CAP_ID', '0x75364575849d028a7b835ccc31d63322433b7861d685cfb9dca97c2158593903'),
   },
 
-  // Treasury caps for minting test tokens
-  treasuryCaps: {
-    ECTO: '0x42f69e1c98e3b14bf8f7e1b7c5099a60a5c94abdfe01d7f5057b4a5e07739aaa',
-    USDC: '0xdabce8645319f64819128cb5cd92adde0b7044d503806574aec2ff368b5fbf3f',
+  // Shared faucet objects for requesting test tokens
+  faucets: {
+    ECTO: env('VITE_ECTO_FAUCET_ID', '0x5a5ddd80bff0e3e79b66af4823f6c0346fb0cf5b7f736d6bda7a9e2accdeb9b4'),
+    USDC: env('VITE_USDC_FAUCET_ID', '0x2841ce82162331d1bb8a1247c4fb58291bb387f24516c663b3b2cf3de6632444'),
   },
 
   // Pool configurations
   pools: {
     'ECTO-USDC': {
-      poolId: '0x4a9dbaa23c118cb6abd8063f073ede7df3dc3d2e28e422af4865a527dd3329d0',
-      coinTypeA: '0xefc27145b92094d1675dbdf1b6d5f4d26277fb1e4da73779fe302064b91ba081::ecto::ECTO',
-      coinTypeB: '0xefc27145b92094d1675dbdf1b6d5f4d26277fb1e4da73779fe302064b91ba081::usdc::USDC',
+      poolId: env('VITE_ECTO_USDC_POOL_ID', '0x4a9dbaa23c118cb6abd8063f073ede7df3dc3d2e28e422af4865a527dd3329d0'),
+      get coinTypeA() { return `${SUI_CONFIG.packageId}::ecto::ECTO`; },
+      get coinTypeB() { return `${SUI_CONFIG.packageId}::usdc::USDC`; },
       decimalsA: 9,
       decimalsB: 6,
     },
@@ -68,14 +74,14 @@ export const SUI_CONFIG = {
     ECTO: {
       symbol: 'ECTO',
       name: 'Ectoplasm',
-      coinType: '0xefc27145b92094d1675dbdf1b6d5f4d26277fb1e4da73779fe302064b91ba081::ecto::ECTO',
+      get coinType() { return `${SUI_CONFIG.packageId}::ecto::ECTO`; },
       decimals: 9,
       logoUrl: '/ecto-logo.svg',
     },
     USDC: {
       symbol: 'USDC',
       name: 'USD Coin',
-      coinType: '0xefc27145b92094d1675dbdf1b6d5f4d26277fb1e4da73779fe302064b91ba081::usdc::USDC',
+      get coinType() { return `${SUI_CONFIG.packageId}::usdc::USDC`; },
       decimals: 6,
       logoUrl: '/usdc-logo.svg',
     },
@@ -87,7 +93,7 @@ export const SUI_CONFIG = {
     deadlineMinutes: 20,
     swapFeeBps: 30, // 0.3%
   },
-} as const;
+};
 
 // Type exports
 export type NetworkType = keyof typeof SUI_CONFIG.networks;
